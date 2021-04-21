@@ -22,7 +22,6 @@ class Post(models.Model):
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
-    excerpt = models.TextField()
     
     class Meta:
         ordering = ('-publish',)
