@@ -1,22 +1,27 @@
-from django.test import TestCase
-from django.contrib.auth.models import User
+from django.test import TestCase, RequestFactory
+from django.contrib.auth.models import AnonymousUser, User
+from django.urls import reverse
 
 from .models import Post
-
+from .views import index, detail
 
 class BlogTests(TestCase):
 
-    def setUp(self):
-        self.user = User.objects.create_user(
+    @classmethod
+    def setUpTestData(cls):
+        # Set up data for the whole TestCase
+        cls.user = User.objects.create_user(
             username='testuser',
             password='testpassword'
         )
 
-        self.post = Post.objects.create(
+        cls.post = Post.objects.create(
             title='Test Title',
             slug='test-title',
             content='Hello World!',
-            author = self.user,
+            author=cls.user,
+            publish='2021-04-22 16:13:01.005166+00:00',
+            status='published'                                                                                                                                                                                                                                                                                                                                                                                
         )
     
     def test_post_content(self):
@@ -34,6 +39,20 @@ class BlogTests(TestCase):
         self.assertEqual(str(post), post.title)
 
     def test_post_status(self):
-        self.assertEqual(self.post.status, 'draft')
-        self.post.status = 'published'
-        self.assertNotEqual(self.post.status, 'draft')
+        self.assertEqual(self.post.status, 'published')
+        self.post.status = 'draft'
+        self.assertNotEqual(self.post.status, 'published')
+
+    def test_post_index_view(self):
+        response = self.client.get(reverse('blog:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Post List')
+        self.assertTemplateUsed(response, 'blog/index.html')
+
+    def test_post_detail_view(self):
+        response = self.client.get('/2021/04/22/test-title/')
+        no_response = self.client.get('/2000/01/01/test-title/')
+        self.assertEqual(response.status_code, 200)
+        self.assertNotEqual(no_response.status_code, 400)
+        self.assertTemplateUsed(response, 'blog/detail.html')
+       
