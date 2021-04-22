@@ -4,34 +4,34 @@
 
     <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>Blog</title>
+        <title>Blog</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <!-- <link href="{% static 'css/blog.css'%}" rel="stylesheet"> -->
+        <!-- Custom styles for this template -->
+        <link href="{% static 'css/blog.css'%}" rel="stylesheet">
 
     </head>
 
     <body>
-
+        {% include "blog/navigation.html" %}
         <!-- Page Content -->
         <div class="container">
             {% block content %}
             {% endblock content %}
         </div>
         <!-- /.container -->
+        {% include "blog/footer.html" %}
 
         <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
     </body>
 
 </html>
