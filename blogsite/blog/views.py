@@ -6,7 +6,7 @@ from .models import Post
 
 def index(request):
     posts = Post.objects.filter(status='published')
-    paginator = Paginator(posts, 2) # 3 posts in each page
+    paginator = Paginator(posts, 3) # 3 posts in each page
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -25,5 +25,5 @@ def detail(request, year, month, day, slug):
                                    publish__year=year,
                                    publish__month=month,
                                    publish__day=day)
-    context = {'post': post, 'page': page}
+    context = {'post': post}
     return render(request, 'blog/detail.html', context)
