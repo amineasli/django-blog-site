@@ -1,5 +1,5 @@
 from django.test import TestCase, RequestFactory
-from django.contrib.auth.models import AnonymousUser, User
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 from .models import Post
