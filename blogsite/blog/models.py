@@ -33,7 +33,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, related_name='posts')
 
     
     class Meta:
