@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from .models import Post
-from .views import index, detail
-
+from .views import post_index, post_detail
 class BlogTests(TestCase):
 
     @classmethod
@@ -44,15 +43,15 @@ class BlogTests(TestCase):
         self.assertNotEqual(self.post.status, 'published')
 
     def test_post_index_view(self):
-        response = self.client.get(reverse('blog:index'))
+        response = self.client.get(reverse('blog:post-index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Post List')
-        self.assertTemplateUsed(response, 'blog/index.html')
+        self.assertTemplateUsed(response, 'blog/post_index.html')
 
     def test_post_detail_view(self):
         response = self.client.get('/2021/04/22/test-title/')
         no_response = self.client.get('/2000/01/01/test-title/')
         self.assertEqual(response.status_code, 200)
         self.assertNotEqual(no_response.status_code, 400)
-        self.assertTemplateUsed(response, 'blog/detail.html')
+        self.assertTemplateUsed(response, 'blog/post_detail.html')
        
