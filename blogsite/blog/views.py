@@ -2,9 +2,9 @@ from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Post
+from .models import Post, Tag
 
-def index(request):
+def post_index(request):
     posts = Post.objects.filter(status='published')
     paginator = Paginator(posts, 3) # 3 posts in each page
     page = request.GET.get('page')
@@ -17,13 +17,19 @@ def index(request):
         # If page is out of range deliver last page of results
         posts = paginator.page(paginator.num_pages)
     context = {'posts': posts}
-    return render(request, 'blog/index.html', context)
+    return render(request, 'blog/post_index.html', context)
 
-def detail(request, year, month, day, slug):
+def post_detail(request, year, month, day, slug):
     post = get_object_or_404(Post, slug=slug,
                                    status='published',
                                    publish__year=year,
                                    publish__month=month,
                                    publish__day=day)
     context = {'post': post}
-    return render(request, 'blog/detail.html', context)
+    return render(request, 'blog/post_detail.html', context)
+
+def tag_detail(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    context = {'posts': tag.posts.all(), 'tag': tag.name}
+    return render(request, 'blog/tag_detail.html', context)
+

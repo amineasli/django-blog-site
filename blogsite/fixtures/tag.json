@@ -1,0 +1,33 @@
+[
+    {
+        "model": "blog.tag",
+        "pk": 1,
+        "fields": {
+            "name": "Ut aliquet",
+            "slug": "ut-aliquet",
+            "created": "2021-02-18T13:19:37+00:00",
+            "updated": "2021-02-18T23:19:37+00:00"
+        }
+    },
+    {
+        "model": "blog.tag",
+        "pk": 2,
+        "fields": {
+            "name": "Nam hendrerit",
+            "slug": "nam-hendrerit",
+            "created": "2021-03-18T13:19:37+00:00",
+            "updated": "2021-03-18T23:19:37+00:00"
+
+        }
+    },
+    {
+        "model": "blog.tag",
+        "pk": 3,
+        "fields": {
+            "name": "Sed sed",
+            "slug": "sed-sed",
+            "created": "2021-04-18T13:19:37+00:00",
+            "updated": "2021-04-18T23:19:37+00:00"
+        }
+    }
+  ]

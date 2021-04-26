@@ -3,6 +3,17 @@ from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+class Tag(models.Model):
+    name = models.CharField(max_length=250)
+    slug = models.SlugField(max_length=250)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     STATUS_CHOICES = (
@@ -22,6 +33,8 @@ class Post(models.Model):
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
+    tags = models.ManyToManyField(Tag)
+
     
     class Meta:
         ordering = ('-publish',)
@@ -30,7 +43,7 @@ class Post(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('blog:detail',
+        return reverse('blog:post_detail',
                        args=[self.publish.year,
                              self.publish.month,
                              self.publish.day, 
