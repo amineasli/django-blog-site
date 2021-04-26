@@ -2,10 +2,9 @@ from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-from .models import Post
-from .views import post_index, post_detail
-class BlogTests(TestCase):
+from .models import Post, Tag
 
+class BlogTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Set up data for the whole TestCase
@@ -22,6 +21,13 @@ class BlogTests(TestCase):
             publish='2021-04-22 16:13:01.005166+00:00',
             status='published'                                                                                                                                                                                                                                                                                                                                                                                
         )
+
+        cls.tag = Tag.objects.create(
+            name='Test tag',
+            slug='test-tag'
+        )
+
+        cls.post.tags.add(cls.tag)
     
     def test_post_content(self):
         self.assertEqual(self.post.title, 'Test Title')
@@ -43,7 +49,7 @@ class BlogTests(TestCase):
         self.assertNotEqual(self.post.status, 'published')
 
     def test_post_index_view(self):
-        response = self.client.get(reverse('blog:post-index'))
+        response = self.client.get(reverse('blog:post_index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Post List')
         self.assertTemplateUsed(response, 'blog/post_index.html')
@@ -54,4 +60,13 @@ class BlogTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotEqual(no_response.status_code, 400)
         self.assertTemplateUsed(response, 'blog/post_detail.html')
-       
+    
+    def test_post_tag(self):
+        count_tags = self.post.tags.all().count() 
+        self.assertEqual(self.tag.name, 'Test tag')
+        self.assertEqual(count_tags, 1)
+    
+    def test_tag_detail_view(self):
+        response = self.client.get('/tag/test-tag/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'blog/tag_detail.html')
