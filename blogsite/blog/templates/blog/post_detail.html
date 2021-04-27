@@ -34,7 +34,6 @@
 
                 <!-- Post Content -->
                 {{ post.content|linebreaks }}
-                <hr>
 
                 <p>
                     Tags:
@@ -45,6 +44,38 @@
                         {% if not forloop.last %} | {% endif %}
                     {% endfor %}
                 </p>
+                <hr>
+
+                {% with comments.count as total_comments %}
+                    <h4>
+                    {{ total_comments }} comment{{ total_comments|pluralize }}
+                    </h4>
+                {% endwith %}
+
+                {% for comment in comments %}
+                    <div class="comment">
+                    <p class="info">
+                        Comment #{{ forloop.counter }} by <a href="#">{{ comment.user.username }}</a>
+                        {{ comment.created }}
+                    </p>
+                    {{ comment.body|linebreaks }}
+                    </div>
+                {% empty %}
+                    <p>There are no comments yet.</p>
+                {% endfor %}
+                {% if new_comment %}
+                    <h4>Your comment has been added.</h4>
+                {% else %}
+                    <h4>Add a new comment</h4>
+                    <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="{{ comment_form.body.id_for_label }}">{{ comment_form.body.label }}</label>
+                        <textarea class="form-control" cols="40" rows="10" required id="{{ comment_form.body.id_for_label }}" name="{{ comment_form.body.html_name }}"></textarea>
+                    </div>
+                    <p><input type="submit" value="Add comment" class="btn btn-primary"></p>
+                    </form>
+                {% endif %}
             </div>
 
         </div>

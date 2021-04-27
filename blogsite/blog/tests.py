@@ -2,7 +2,7 @@ from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-from .models import Post, Tag
+from .models import Post, Tag, Comment
 
 class BlogTests(TestCase):
     @classmethod
@@ -28,6 +28,18 @@ class BlogTests(TestCase):
         )
 
         cls.post.tags.add(cls.tag)
+
+        cls.comment1 = Comment.objects.create(
+            body='test comment #1',
+            user=cls.user,
+            post=cls.post
+        )
+
+        cls.comment2 = Comment.objects.create(
+            body='test comment #2',
+            user=cls.user,
+            post=cls.post
+        )
     
     def test_post_content(self):
         self.assertEqual(self.post.title, 'Test Title')
@@ -70,3 +82,8 @@ class BlogTests(TestCase):
         response = self.client.get('/tag/test-tag/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog/tag_detail.html')
+    
+    def test_post_comment(self):
+        count_comments = self.post.comments.all().count() 
+        self.assertEqual(count_comments, 2)
+        self.assertEqual(self.comment1.user.username, 'testuser')
