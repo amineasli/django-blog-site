@@ -4,7 +4,7 @@ from ..models import Tag
 
 register = template.Library()
 
-@register.inclusion_tag("blog/tag_names.html")
-def tag_names():
+@register.inclusion_tag("blog/tag_list.html")
+def tag_list():
     tags = Tag.objects.all()
-    return {'names': tags}
+    return {'tags': tags}
