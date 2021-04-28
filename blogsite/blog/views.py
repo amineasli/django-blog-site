@@ -52,11 +52,6 @@ def post_detail(request, year, month, day, slug):
 
     return render(request, 'blog/post_detail.html', context)
 
-def tag_list(request):
-    tags = Tag.objects.all()
-    names = ', '.join([t.name for t in tags])
-    return HttpResponse(names)
-
 def tag_detail(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
     context = {'posts': tag.posts.all(), 'tag': tag.name}
