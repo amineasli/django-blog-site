@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Post, Tag
@@ -34,6 +34,9 @@ def post_detail(request, year, month, day, slug):
     new_comment = None
 
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('login')
+
         # A comment was posted
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
@@ -44,7 +47,7 @@ def post_detail(request, year, month, day, slug):
     else:
         comment_form = CommentForm()
     
-    context = {'post': post,
+    context = { 'post': post,
                 'comments': comments,
                 'new_comment': new_comment,
                 'comment_form': comment_form,
