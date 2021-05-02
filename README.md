@@ -10,8 +10,8 @@ A simple blog application based Django
   ```
 2. Install Python packages
   ```sh
-  cd django-blog-site/
-  pip install -r requirements.txt
+   cd django-blog-site/
+   pip install -r requirements.txt
   ```
 3. Provide initial data for models 
    ```sh
@@ -23,8 +23,8 @@ A simple blog application based Django
    ```sh
    python manage.py runserver
 
-5. You can access the admin via http://127.0.0.1:8000/admin
-   login: admin
+5. You can access the admin via http://127.0.0.1:8000/admin  
+   login: admin  
    password: secret
  
 ## License
