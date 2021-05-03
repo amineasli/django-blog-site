@@ -23,10 +23,10 @@ A simple blog application based on Django
    ```sh
    python manage.py runserver
 
-5. You can access the admin via http://127.0.0.1:8000/admin  
+5. You can access the admin via http://127.0.0.1:8000/admin    
    login: admin  
    password: secret
  
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.`
+Distributed under the MIT License. See `LICENSE` for more information.
