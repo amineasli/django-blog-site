@@ -1,18 +1,18 @@
 # Django Blog Site
 
-A simple blog application based Django
+A simple blog application based on Django
 
 ## Installation
 
 1. Clone the repo
-  ```sh
-   git clone https://github.com/AmineAsli/django-blog-site.git
-  ```
+   ```sh
+    git clone https://github.com/AmineAsli/django-blog-site.git
+   ```
 2. Install Python packages
-  ```sh
-   cd django-blog-site/
-   pip install -r requirements.txt
-  ```
+   ```sh
+    cd django-blog-site/
+    pip install -r requirements.txt
+   ```
 3. Provide initial data for models 
    ```sh
    python manage.py loaddata fixtures/user.json 
