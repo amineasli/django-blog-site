@@ -13,17 +13,21 @@ A simple blog application based on Django
     cd django-blog-site/
     pip install -r requirements.txt
    ```
-3. Provide initial data for models 
+3. Apply migrations
    ```sh
-   python manage.py loaddata fixtures/user.json 
-   python manage.py loaddata fixtures/tag.json 
-   python manage.py loaddata fixtures/post.json 
+    python manage.py migrate
    ```
-4. Run the development server
+4. Provide initial data for models 
    ```sh
-   python manage.py runserver
-
-5. You can access the admin via http://127.0.0.1:8000/admin    
+    python manage.py loaddata fixtures/user.json 
+    python manage.py loaddata fixtures/tag.json 
+    python manage.py loaddata fixtures/post.json 
+   ```
+5. Run the development server
+   ```sh
+    python manage.py runserver
+   ```
+6. You can access the admin via http://127.0.0.1:8000/admin    
    login: admin  
    password: secret
  
