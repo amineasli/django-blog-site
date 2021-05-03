@@ -17,20 +17,29 @@ A simple blog application based on Django
    ```sh
     python manage.py migrate
    ```
-4. Provide initial data for models 
+4. Collects all the static files into STATIC_ROOT
+   ```sh
+    python manage.py collectstatic
+   ```
+5. Provide initial data for models 
    ```sh
     python manage.py loaddata fixtures/user.json 
     python manage.py loaddata fixtures/tag.json 
     python manage.py loaddata fixtures/post.json 
    ```
-5. Run the development server
+6. Run the development server
    ```sh
     python manage.py runserver
    ```
-6. You can access the admin via http://127.0.0.1:8000/admin    
+7. You can access the admin via http://127.0.0.1:8000/admin    
    login: admin  
    password: secret
- 
+  
+## Running tests
+
+```sh
+ python manage.py test
+```
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
