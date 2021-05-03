@@ -36,7 +36,6 @@ A simple blog application based on Django
    password: secret
   
 ## Running tests
-
 ```sh
  python manage.py test
 ```
